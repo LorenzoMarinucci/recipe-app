@@ -1,8 +1,10 @@
 package recipeapp.bootstrap;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import recipeapp.domain.*;
 import recipeapp.repositories.CategoryRepository;
 import recipeapp.repositories.RecipeRepository;
@@ -11,6 +13,7 @@ import recipeapp.repositories.UnitOfMeasureRepository;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+@Slf4j
 @Component
 public class DataLoader implements CommandLineRunner {
 
@@ -26,7 +29,10 @@ public class DataLoader implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
+
+        log.debug("Loading bootstrap data");
 
         //FIND CATEGORIES
 

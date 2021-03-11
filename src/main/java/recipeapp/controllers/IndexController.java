@@ -1,5 +1,6 @@
 package recipeapp.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +14,7 @@ import recipeapp.services.RecipeService;
 
 import java.util.Optional;
 
+@Slf4j
 @Controller
 @RequestMapping({"", "/", "/index"})
 public class IndexController {
@@ -26,6 +28,7 @@ public class IndexController {
 
     @GetMapping
     public String getIndexPage(Model model) {
+        log.debug("Getting Index Page");
         model.addAttribute("recipes", recipeService.getRecipes());
         return "index";
     }
