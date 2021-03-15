@@ -133,9 +133,9 @@ public class DataLoader implements CommandLineRunner {
                 "\n" +
                 "Cut the avocados in half. Remove the pit. Score the inside of the avocado with a blunt knife" +
                 " and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl.\n\n" +
-                "2. Mash with a fork: \n\nUsing a fork, roughly mash the avocado. (Don't overdo it! " +
+                "\n2. Mash with a fork: \n\nUsing a fork, roughly mash the avocado. (Don't overdo it! " +
                 "The guacamole should be a little chunky.)\n\n" +
-                "3. Add salt, lime juice, and the rest:\n" +
+                "\n3. Add salt, lime juice, and the rest:\n" +
                 "\n" +
                 "Sprinkle with salt and lime (or lemon) juice. The acid in the lime juice will provide some balance " +
                 "to the richness of the avocado and will help delay the avocados from turning brown.\n" +
@@ -148,13 +148,13 @@ public class DataLoader implements CommandLineRunner {
                 "Start with this recipe and adjust to your taste.\n" +
                 "Chilling tomatoes hurts their flavor, so if you want to add chopped tomato to your guacamole, " +
                 "add it just before serving." +
-                "4. Serve:\n" +
+                "\n4. Serve:\n" +
                 "\n" +
                 "Serve immediately, or if making a few hours ahead, place plastic wrap on the surface of the " +
                 "guacamole and press down to cover it and to prevent air reaching it. (The oxygen in the air " +
                 "causes oxidation which will turn the guacamole brown.) Refrigerate until ready to serve. ");
         perfectGuacamole.setCookTime(0);
-        perfectGuacamole.setServingTime(0);
+        perfectGuacamole.setServings(4);
         perfectGuacamole.setUrl("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
         perfectGuacamole.setSource("Simply Recipes");
         perfectGuacamole.getCategories().add(mexicanCategory);
@@ -181,7 +181,7 @@ public class DataLoader implements CommandLineRunner {
         tacosRecipe.setSource("Simply Recipes");
         tacosRecipe.setPrepTime(20);
         tacosRecipe.setCookTime(15);
-        tacosRecipe.setServingTime(10);
+        tacosRecipe.setServings(3);
         tacosRecipe.setDifficulty(Difficulty.MODERATE);
         tacosRecipe.setDirections("\n" +
                 "1. Prepare a gas or charcoal grill for medium-high, direct heat\n" +
