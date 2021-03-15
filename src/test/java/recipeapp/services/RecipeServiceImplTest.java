@@ -9,6 +9,7 @@ import recipeapp.domain.Recipe;
 import recipeapp.repositories.RecipeRepository;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +29,22 @@ class RecipeServiceImplTest {
     }
 
     @Test
-    void getRecipes() {
+    void getRecipeByIdTest() {
+        Recipe recipe = new Recipe();
+        recipe.setId(1L);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.findById(1L);
+        assertNotNull(recipeReturned);
+        assertEquals(1L, recipeReturned.getId());
+        verify(recipeRepository, never()).findAll();
+        verify(recipeRepository, times(1)).findById(anyLong());
+    }
+
+    @Test
+    void getRecipesTest() {
         Recipe recipe = new Recipe();
         Set<Recipe> recipesData = new HashSet<>();
         recipesData.add(recipe);
@@ -38,5 +54,6 @@ class RecipeServiceImplTest {
         Set<Recipe> recipes = recipeService.getRecipes();
         assertEquals(1, recipes.size());
         verify(recipeRepository, times(1)).findAll();
+        verify(recipeRepository, never()).findById(anyLong());
     }
 }
