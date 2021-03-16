@@ -21,7 +21,7 @@
 <body>
 <div class="container-fluid" style="margin-top: 20px; margin-bottom: 10px">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-8 offset-md-2">
             <form  th:object="${recipe}" th:action="@{/recipe/}" method="post">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="cards">
@@ -90,10 +90,10 @@
                     <div class="card border-primary mb-3">
                         <div class="card-header bg-primary text-white">
                             <div class="row">
-                                <div class="col-md-10">
+                                <div class="col-md-11">
                                     <h5 class="card-title" style="margin: 0px"><b>Ingredients</b></h5>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-1">
                                     <a class="btn btn-light btn-outline-dark btn-sm" href="#" role="button">Edit</a>
                                 </div>
                             </div>

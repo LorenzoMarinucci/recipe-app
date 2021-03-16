@@ -24,7 +24,8 @@
             <div class="cards">
                 <div class="card border-primary mb-3">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="card-title" style="margin: 0px"><b th:text="${recipe.description}">Recipe Description Here!</b></h5>
+                        <h5 class="card-title" style="margin: 0px"><b th:text="${recipe.description}">Recipe Description
+                            Here!</b></h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -35,7 +36,9 @@
                                 <ul>
                                     <li th:remove="all">cat one</li>
                                     <li th:remove="all">cat two</li>
-                                    <li th:each="category: ${recipe.categories}" th:text="${category.description}">cat three</li>
+                                    <li th:each="category: ${recipe.categories}" th:text="${category.description}">cat
+                                        three
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -85,7 +88,15 @@
                 </div>
                 <div class="card border-primary mb-3">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="card-title" style="margin: 0px" ><b>Ingredients</b></h5>
+                        <div class="row">
+                            <div class="col-md-11">
+                                <h5 class="card-title" style="margin: 0px"><b>Ingredients</b></h5>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-light btn-outline-dark btn-sm" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/ingredients'}" role="button">View</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -95,7 +106,8 @@
                                     <li th:remove="all">1 Teaspoon of chocolate</li>
                                     <li th:each="ingredient:${recipe.ingredients}"
                                         th:text="${(ingredient.amount) + ' ' + (ingredient.uom.description)
-                                                + ' - ' + (ingredient.description)}">1 Teaspoon of Sugar</li>
+                                                + ' - ' + (ingredient.description)}">1 Teaspoon of Sugar
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -103,24 +115,48 @@
                 </div>
                 <div class="card border-primary mb-3">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="card-title" style="margin: 0px" ><b>Directions</b></h5>
+                        <h5 class="card-title" style="margin: 0px"><b>Directions</b></h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.directions}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                                <p th:text="${recipe.directions}">Lorem ipsum dolor sit amet, consectetuer adipiscing
+                                    elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus
+                                    et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+                                    nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede
+                                    justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut,
+                                    imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
+                                    Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate
+                                    eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac,
+                                    enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus
+                                    viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam
+                                    ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam
+                                    rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero,
+                                    sit amet adipiscing sem neque sed ipsum.</p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card border-primary mb-3">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="card-title" style="margin: 0px" ><b>Notes</b></h5>
+                        <h5 class="card-title" style="margin: 0px"><b>Notes</b></h5>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.notes.recipeNotes}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                                <p th:text="${recipe.notes.recipeNotes}">Lorem ipsum dolor sit amet, consectetuer
+                                    adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque
+                                    penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis,
+                                    ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.
+                                    Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo,
+                                    rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis
+                                    pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean
+                                    vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
+                                    eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
+                                    Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet.
+                                    Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.
+                                    Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper
+                                    libero, sit amet adipiscing sem neque sed ipsum.</p>
                             </div>
                         </div>
                     </div>
