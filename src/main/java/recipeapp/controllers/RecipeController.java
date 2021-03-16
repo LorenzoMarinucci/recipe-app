@@ -1,5 +1,6 @@
 package recipeapp.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import recipeapp.commands.RecipeCommand;
 import recipeapp.services.RecipeService;
 
+@Slf4j
 @Controller
 @RequestMapping("/recipe")
 public class RecipeController {
@@ -40,6 +42,13 @@ public class RecipeController {
     public String updateRecipe(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findCommandById(Long.parseLong(id)));
         return "recipe/recipeform";
+    }
+
+    @GetMapping("{id}/delete")
+    public String deleteRecipe(@PathVariable String id) {
+        log.debug("Deleting id: " + id);
+        recipeService.deleteById(Long.parseLong(id));
+        return "redirect:/";
     }
 
 }
