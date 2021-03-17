@@ -135,7 +135,7 @@ public class IngredientServiceImpl implements IngredientService {
         }
 
         Ingredient ingredientToDelete = optionalIngredient.get();
-        ingredientToDelete.setRecipe(null);
+        //ingredientToDelete.setRecipe(null);
         recipe.getIngredients().remove(ingredientToDelete);
         recipeRepository.save(recipe);
     }

@@ -1,12 +1,14 @@
 package recipeapp.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 public class Recipe {
 
@@ -27,10 +29,10 @@ public class Recipe {
     @Lob
     private Byte[] image;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Notes notes;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<>();
 
     @Enumerated(value = EnumType.STRING)
