@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import recipeapp.commands.IngredientCommand;
+import recipeapp.commands.RecipeCommand;
+import recipeapp.commands.UnitOfMeasureCommand;
 import recipeapp.services.IngredientService;
 import recipeapp.services.RecipeService;
 import recipeapp.services.UnitOfMeasureService;
@@ -38,6 +40,22 @@ public class IngredientController {
         model.addAttribute("ingredient",
                 ingredientService.findByRecipeIdAndIngredientId(Long.parseLong(recipeId), Long.parseLong(id)));
         return "recipe/ingredient/show";
+    }
+
+    @GetMapping
+    @RequestMapping("/recipe/{recipeId}/ingredient/new")
+    public String newIngredient(@PathVariable String recipeId, Model model) {
+
+        RecipeCommand recipe = recipeService.findCommandById(Long.parseLong(recipeId));
+        //todo raise exception if null
+
+        IngredientCommand ingredient = new IngredientCommand();
+        ingredient.setRecipeId(recipe.getId());
+
+        model.addAttribute("ingredient", ingredient);
+        ingredient.setUom(new UnitOfMeasureCommand());
+        model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
+        return "recipe/ingredient/ingredientform";
     }
 
     @GetMapping
