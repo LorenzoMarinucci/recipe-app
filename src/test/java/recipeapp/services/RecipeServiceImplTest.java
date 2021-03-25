@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import recipeapp.converters.RecipeCommandToRecipe;
 import recipeapp.converters.RecipeToRecipeCommand;
 import recipeapp.domain.Recipe;
+import recipeapp.exceptions.NotFoundException;
 import recipeapp.repositories.RecipeRepository;
 
 import java.util.HashSet;
@@ -34,6 +35,17 @@ class RecipeServiceImplTest {
     @BeforeEach
     private void setUp() {
         recipeService = new RecipeServiceImpl(recipeRepository, recipeToRecipeCommand, recipeCommandToRecipe);
+    }
+
+    @Test
+    public void getRecipeByIdTestNotFound() {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        assertThrows(NotFoundException.class, () -> {
+            Recipe recipe = recipeService.findById(1L);
+        });
     }
 
     @Test

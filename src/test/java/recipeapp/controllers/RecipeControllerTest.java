@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import recipeapp.commands.RecipeCommand;
 import recipeapp.domain.Recipe;
+import recipeapp.exceptions.NotFoundException;
 import recipeapp.services.RecipeService;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -49,6 +50,14 @@ class RecipeControllerTest {
                 .andExpect(view().name("recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
 
+    }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
     }
 
     @Test

@@ -8,6 +8,7 @@ import recipeapp.converters.RecipeCommandToRecipe;
 import recipeapp.converters.RecipeToRecipeCommand;
 import recipeapp.domain.Notes;
 import recipeapp.domain.Recipe;
+import recipeapp.exceptions.NotFoundException;
 import recipeapp.repositories.RecipeRepository;
 
 import javax.transaction.Transactional;
@@ -42,7 +43,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Recipe findById(Long id) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
         if(optionalRecipe.isEmpty()) {
-            throw new RuntimeException("Recipe not found");
+            throw new NotFoundException("Recipe not found");
         }
         return optionalRecipe.get();
     }
