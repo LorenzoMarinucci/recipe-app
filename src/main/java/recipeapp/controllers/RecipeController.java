@@ -5,11 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import recipeapp.commands.RecipeCommand;
 import recipeapp.exceptions.NotFoundException;
 import recipeapp.services.RecipeService;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -17,6 +20,7 @@ import recipeapp.services.RecipeService;
 public class RecipeController {
 
     private final RecipeService recipeService;
+    private final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
 
     @Autowired
     public RecipeController(RecipeService recipeService) {
@@ -32,11 +36,21 @@ public class RecipeController {
     @GetMapping("/new")
     public String newRecipe(Model model) {
         model.addAttribute("recipe", new RecipeCommand());
-        return "recipe/recipeform";
+        return RECIPE_RECIPEFORM_URL;
     }
 
     @PostMapping
-    public String saveOrUpdate(@ModelAttribute RecipeCommand recipeCommand) {
+    public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand,
+                               BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(objectError -> {
+                log.debug(objectError.toString());
+            });
+
+            return RECIPE_RECIPEFORM_URL;
+        }
+
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
     }
@@ -44,7 +58,7 @@ public class RecipeController {
     @GetMapping("{id}/update")
     public String updateRecipe(@PathVariable String id, Model model) {
         model.addAttribute("recipe", recipeService.findCommandById(Long.parseLong(id)));
-        return "recipe/recipeform";
+        return RECIPE_RECIPEFORM_URL;
     }
 
     @GetMapping("{id}/delete")
