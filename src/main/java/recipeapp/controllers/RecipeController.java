@@ -2,13 +2,16 @@ package recipeapp.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import recipeapp.commands.RecipeCommand;
+import recipeapp.domain.Recipe;
 import recipeapp.exceptions.NotFoundException;
 import recipeapp.services.RecipeService;
 
@@ -21,6 +24,8 @@ public class RecipeController {
 
     private final RecipeService recipeService;
     private final String RECIPE_RECIPEFORM_URL = "recipe/recipeform";
+    
+    private RecipeCommand cache = null;
 
     @Autowired
     public RecipeController(RecipeService recipeService) {
@@ -43,6 +48,10 @@ public class RecipeController {
     public String saveOrUpdate(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand,
                                BindingResult bindingResult) {
 
+        if (this.cache != null) {
+            this.restoreAttributes(recipeCommand);
+        }
+
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError -> {
                 log.debug(objectError.toString());
@@ -51,13 +60,27 @@ public class RecipeController {
             return RECIPE_RECIPEFORM_URL;
         }
 
+        this.cache = null;
+
         RecipeCommand savedCommand = recipeService.saveRecipeCommand(recipeCommand);
+        savedCommand.getIngredients().forEach(ingredient -> {
+            System.out.println(ingredient.getId() + " " + ingredient.getDescription());
+        });
+
         return "redirect:/recipe/" + savedCommand.getId() + "/show";
+    }
+
+    private void restoreAttributes(RecipeCommand recipe) {
+        recipe.setImage(this.cache.getImage());
+        recipe.setIngredients(this.cache.getIngredients());
+        recipe.setCategories(this.cache.getCategories());
     }
 
     @GetMapping("{id}/update")
     public String updateRecipe(@PathVariable String id, Model model) {
-        model.addAttribute("recipe", recipeService.findCommandById(Long.parseLong(id)));
+        RecipeCommand recipe = recipeService.findCommandById(Long.parseLong(id));
+        this.cache = recipe;
+        model.addAttribute("recipe", recipe);
         return RECIPE_RECIPEFORM_URL;
     }
 
